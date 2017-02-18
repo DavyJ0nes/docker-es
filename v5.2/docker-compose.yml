@@ -1,3 +1,5 @@
+# Works on Docker for Mac and Linux 
+# To use with docker-machine have to build docker iamge and change image reference for es-nodes
 version: "2"
 services:
   kibana: 
