@@ -1,0 +1,94 @@
+version: "2"
+services:
+  kibana: 
+    image: kibana:5.2
+    depends_on: 
+      - es-node-1
+    environment:
+      - ELASTICSEARCH_URL=http://es-node-1:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=changeme
+    networks:
+      - es-net
+    ports: 
+      - "5601:5601"
+
+  es-node-1:
+    image: elasticsearch:5.2
+    volumes:
+      - node_data1:/usr/share/elasticsearch/data
+      - ./config:/usr/share/elasticsearch/config
+    networks:
+      - es-net
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true
+      - "node.master=true"
+      - "node.name=es-node-1"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - 9200:9200
+
+  es-node-2:
+    image: elasticsearch:5.2
+    volumes:
+      - node_data2:/usr/share/elasticsearch/data
+      - ./config:/usr/share/elasticsearch/config
+    networks:
+      - es-net
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true
+      - "node.name=es-node-2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+
+  es-node-3:
+    image: elasticsearch:5.2
+    volumes:
+      - node_data3:/usr/share/elasticsearch/data
+      - ./config:/usr/share/elasticsearch/config
+    networks:
+      - es-net
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true
+      - "node.name=es-node-3"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+
+networks:
+  es-net:
+
+volumes:
+  node_data1:
+    driver: local
+  node_data2:
+    driver: local
+  node_data3:
+    driver: local

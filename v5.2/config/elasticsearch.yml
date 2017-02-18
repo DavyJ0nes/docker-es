@@ -1,0 +1,4 @@
+network.host: _eth0_
+http.host: 0.0.0.0
+cluster.name: es-experimental
+discovery.zen.ping.unicast.hosts: ["es-node-1", "es-node-2", "es-node-3"]
