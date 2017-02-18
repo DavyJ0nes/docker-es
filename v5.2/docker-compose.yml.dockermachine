@@ -16,7 +16,7 @@ services:
       - "5601:5601"
 
   es-node-1:
-    image: elasticsearch:5.2
+    image: es52
     volumes:
       - node_data1:/usr/share/elasticsearch/data
       - ./config:/usr/share/elasticsearch/config
@@ -41,7 +41,7 @@ services:
       - 9200:9200
 
   es-node-2:
-    image: elasticsearch:5.2
+    image: es52
     volumes:
       - node_data2:/usr/share/elasticsearch/data
       - ./config:/usr/share/elasticsearch/config
@@ -63,7 +63,7 @@ services:
       - IPC_LOCK
 
   es-node-3:
-    image: elasticsearch:5.2
+    image: es52
     volumes:
       - node_data3:/usr/share/elasticsearch/data
       - ./config:/usr/share/elasticsearch/config
